@@ -1,5 +1,15 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <ul>
+      <li v-for="user in users"> 
+        <span>{{ user.name }}</span>
+      </li>
+    </ul>
   </div>
 </template>
+
+<script>
+export default {
+  users: []
+}
+</script>
