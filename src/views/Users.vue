@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import User from '../models/User'
+import store from '../store'
 
 export default {
   data() {
     return ({
-      users: User.find()
+      users: store.users
     })
   },
   addUser(user) {
