@@ -11,6 +11,7 @@
             </small>
           </footer>
         </blockquote>
+        <router-link to="/users">Users</router-link>
       </v-layout>
     </v-slide-y-transition>
   </v-container>

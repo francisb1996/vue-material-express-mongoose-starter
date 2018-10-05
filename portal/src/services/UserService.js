@@ -1,15 +1,18 @@
 import axios from 'axios'
 
-
-const apiAddress = 'localhost:8081'
+const apiAddress = 'http://localhost:8081'
 
 class UserService {
-  async getUsers() {
+  async getAll() {
     return await axios.get(`${apiAddress}/users`)
   }
 
-  async getUsersByName(name) {
+  async get(name) {
     return await axios.get(`${apiAddress}/users/${name}`)
+  }
+
+  async add(user) {
+    return await axios.post(`${apiAddress}/users`, user)
   }
 }
 
