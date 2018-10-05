@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <ul>
-      <li v-for="user in users"> 
+      <li v-for="(user, index) in users" :key="index"> 
         <span>{{ user.name }}</span>
       </li>
     </ul>
@@ -9,7 +9,14 @@
 </template>
 
 <script>
+import UserSerivce from '../services/UserSerivce'
+
 export default {
-  users: []
+  data() {
+    return ({
+      users: UserSerivce.getUsers()
+    })
+  }
+  
 }
 </script>
