@@ -9,17 +9,16 @@
 </template>
 
 <script>
-import UserSerivce from '../services/UserService'
+import User from '../models/User'
 
 export default {
   data() {
     return ({
-      users: UserSerivce.getAll()
+      users: User.find()
     })
   },
   addUser(user) {
-    return UserSerivce.add(user)
+    return user.save()
   }
-  
 }
 </script>
