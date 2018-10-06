@@ -14,7 +14,7 @@ import UserSerivce from '../services/UserService'
 export default {
   data() {
     return ({
-      users: UserSerivce.getAll()
+      users: this.$store.state.users
     })
   },
   addUser(user) {

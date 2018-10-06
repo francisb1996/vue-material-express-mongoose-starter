@@ -1,3 +1,4 @@
 export default class User {
-  name
+  id: string
+  name: string
 }
