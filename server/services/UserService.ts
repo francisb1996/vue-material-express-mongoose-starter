@@ -1,21 +1,23 @@
 import User from '../../models/User'
+import { Collection } from 'mongodb'
 
 export default class UserService {
-  private users
+  private users: Collection
 
   constructor({ db }) {
     this.users = db.collection('users')
   }
 
-  getAllUsers(): User[] {
-    return this.users.find()
+  async getAllUsers(): Promise<User[]> {
+    return await this.users.find().toArray()
   }
-  
-  getUserByName(name): User {
-    return this.users.find({name})
+
+  async getUserByName(name): Promise<User> {
+    console.log(`Getting user ${name}`)
+    return await this.users.findOne({ name })
   }
-  
-  insertUser(user): User {
-    return this.users.insert(user)
+
+  async insertUser(user): Promise<User> {
+    return this.users.insertOne(user).then(res => res.ops[0])
   }
 }

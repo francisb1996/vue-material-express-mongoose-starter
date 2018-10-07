@@ -1,27 +1,25 @@
 <template>
   <v-app>
     <v-navigation-drawer
-      persistent
       :mini-variant="miniVariant"
       :clipped="clipped"
       v-model="drawer"
       enable-resize-watcher
-      fixed
       app
+      temporary
+      dark
     >
       <v-list>
-        <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+        <router-link v-for="(item, i) in items" :key="i" :to="{name: item.route}">
+          <v-list-tile @click.stop="drawer = false">
+            <v-list-tile-action>
+              <v-icon v-html="item.icon"></v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title v-text="item.title"></v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </router-link>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app :clipped-left="clipped">
@@ -30,28 +28,6 @@
     <v-content>
       <router-view/>
     </v-content>
-    <v-navigation-drawer
-      temporary
-      :right="right"
-      v-model="rightDrawer"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-tile @click="right = !right">
-          <v-list-tile-action>
-            <v-icon>fas fa-exchange-alt</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <v-layout>
-        <v-flex md6>&copy; 2018</v-flex>
-        <v-flex align-content-end md6><a href="stackoverflow.com">Support</a></v-flex>
-      </v-layout>
-    </v-footer>
   </v-app>
 </template>
 
@@ -64,10 +40,18 @@ export default {
       clipped: false,
       drawer: true,
       fixed: false,
-      items: [{
-        icon: 'fas fa-shapes',
-        title: 'Inspire'
-      }],
+      items: [
+        {
+          icon: 'fas fa-home',
+          title: 'Home',
+          route: 'home'
+        },
+        {
+          icon: 'fas fa-users',
+          title: 'Users',
+          route: 'users'
+        }
+      ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
@@ -78,7 +62,16 @@ export default {
 </script>
 
 <style>
-  v-footer {
-    padding: 1rem
+  h1, h2 {
+    font-weight: normal;
+  }
+
+  a {
+    text-decoration: none
+  }
+
+  .page {
+    max-width: 1500px !important;
+    margin: auto;
   }
 </style>
