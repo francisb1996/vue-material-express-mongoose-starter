@@ -1,5 +1,4 @@
 import * as express from 'express'
-import * as bodyParser from 'body-parser'
 import * as mongodb from 'mongodb'
 import * as serveStatic from 'serve-static'
 import jade from 'jade'
@@ -19,11 +18,11 @@ class App {
   constructor () {
     this.connectToDB()
     this.api = express()
-    this.mountRoutes()
-    this.api.use(bodyParser.json());
-    this.api.use(bodyParser.urlencoded({ extended: true }));
+    this.api.use(express.json())
+    this.api.use(express.urlencoded({ extended: true }));
     this.api.set('view engine', 'jade');
     this.api.use(serveStatic('../portal/dist', { index: 'index.html' }))
+    this.mountRoutes()
     this.api.listen(this.port)
     console.info('The server is up and running.')
   }
@@ -40,30 +39,41 @@ class App {
     router.get('/users', async (req, res) => {
       try {
         const users: User[] = await this.userService.getAllUsers()
-        res.status(200).send(users)
+        res.status(200).send(await this.userService.getAllUsers())
       } catch (e) {
         res.status(500).send('Failed to get users')
       }
     })
 
-    router.get('/users/:name', async (req, res) => {
+    router.get('/users/:_id', async (req, res) => {
       try {
-        const user = await this.userService.getUserByName(req.params.name)
+        const user: User = await this.userService.getUserById(req.params._id)
         res.status(200).send(user)
       } catch (e) {
-        res.status(404).send(`User ${req.params.name} not found.`)
+        res.status(404).send(`User ${req.params._id} not found.`)
       }
     })
 
     router.post('/users', async (req, res) => {
       try {
-        const addedUser = await this.userService.insertUser(req.body)
+        const addedUser = await this.userService.insertUser(new User(req.body))
         res.status(201).send(addedUser)
       } catch (e) {
         res.status(422).send('Invalid user')
         console.warn(e)
       }
     })
+
+    router.delete('/users/:_id', async (req, res) => {
+      try {
+        await this.userService.deleteUserById(req.params._id)
+        res.status(204).send()
+      } catch (e) {
+        res.status(500).send('Failed to remove user')
+        console.warn(e)
+      }
+    })
+
     this.api.use('/', router)
   }
 

@@ -1,9 +1,9 @@
 export default class User {
-  _id: string
-  name: string
+  _id?: string
+  name?: string
 
-  constructor({_id = '', name = ''}) {
-    this._id = _id
-    this.name = name
+  constructor(user?: any) {
+    this._id = user._id
+    this.name = user.name
   }
 }

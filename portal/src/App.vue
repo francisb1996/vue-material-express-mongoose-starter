@@ -1,29 +1,27 @@
 <template>
   <v-app>
     <v-navigation-drawer
-      :mini-variant="miniVariant"
       :clipped="clipped"
       v-model="drawer"
-      enable-resize-watcher
-      app
-      temporary
-      dark
-    >
+      disable-resize-watcher
+      app>
       <v-list>
         <router-link v-for="(item, i) in items" :key="i" :to="{name: item.route}">
           <v-list-tile @click.stop="drawer = false">
             <v-list-tile-action>
               <v-icon v-html="item.icon"></v-icon>
             </v-list-tile-action>
-            <v-list-tile-content>
+            <v-list-tile-content text-color="white">
               <v-list-tile-title v-text="item.title"></v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </router-link>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar app :clipped-left="clipped">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+    <v-toolbar flat color="primary" app :clipped-left="clipped">
+      <v-btn icon @click.stop="drawer = !drawer">
+        <v-icon color="white">fas fa-bars</v-icon>
+      </v-btn>
     </v-toolbar>
     <v-content>
       <router-view/>
@@ -64,6 +62,11 @@ export default {
 <style>
   h1, h2 {
     font-weight: normal;
+  }
+
+  h1 {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
   }
 
   a {
