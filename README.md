@@ -4,8 +4,7 @@ You must set up MongoDB before running this app. Once `mongodb` is running, you'
 
 **Tech**
 
-  'Vue, Vuetify, Vuex, Typescript'
-  'Express, MongoDb, Typescript'
+  Vue, Vuetify, Vuex, Typescript, Express, MongoDb
 
 *To install, build, and serve*
 
