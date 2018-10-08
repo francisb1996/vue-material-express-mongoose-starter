@@ -1,10 +1,11 @@
 import User from '../../models/User'
 import { Collection, ObjectId } from 'mongodb'
+import { NOTINITIALIZED } from 'dns';
 
-export default class UserService {
+class UserService {
   private users: Collection
 
-  constructor({ db }) {
+  init({ db }) {
     this.users = db.collection('users')
   }
 
@@ -28,3 +29,5 @@ export default class UserService {
     this.users.remove({ _id: new ObjectId(_id) })
   }
 }
+
+export default new UserService()
