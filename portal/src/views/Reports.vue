@@ -2,7 +2,7 @@
   <v-container fluid class="page">
     <v-layout column>
       <v-flex xs12>
-        <h1>Users</h1>
+        <h1>Reports</h1>
       </v-flex>
 
       <v-flex xs12 v-if="error">
@@ -21,25 +21,25 @@
                 <v-layout row pa-2 align-content-center>
                   <v-flex xs2 pr-2>
                     <v-text-field
-                      label="New User"
-                      v-model="newUser.name"
-                      @keyup.enter="addUser(newUser)"/>
+                      label="New Report"
+                      v-model="newReport.name"
+                      @keyup.enter="addReport(newReport)"/>
                   </v-flex>
                   <v-flex xs10>
-                    <v-btn icon @click="addUser(newUser)" :disabled="!newUser.name">
+                    <v-btn icon @click="addReport(newReport)" :disabled="!newReport.name">
                       <v-icon color="primary">fas fa-plus</v-icon>
                     </v-btn>
                   </v-flex>
                 </v-layout>
               </v-flex>
-              <v-flex xs6 sm4 md2 pa-2 v-for="(user, i) in users" :key="i"> 
+              <v-flex xs6 sm4 md2 pa-2 v-for="(report, i) in reports" :key="i"> 
                 <v-card>
                   <v-card-text>
                     <v-layout align-center>
-                      <v-flex xs10>{{ user.name }}</v-flex>
+                      <v-flex xs10>{{ report.name }}</v-flex>
                       <v-spacer/>
                       <v-flex xs2>
-                        <v-btn icon right @click="deleteUser(user)">
+                        <v-btn icon right @click="deleteReport(report)">
                           <v-icon color="secondary" small>fas fa-trash-alt</v-icon>
                         </v-btn>
                       </v-flex>
@@ -56,26 +56,27 @@
 </template>
 
 <script>
-import UserService from '../services/UserService'
-import User from '../../../models/User';
+//import ReportService from '../services/ReportService'
+import Report from '../../../models/Report';
 
 export default {
-  name: 'Users',
+  name: 'Reports',
   data() {
     return ({
       loading: true,
       error: null,
-      users: [],
-      newUser: { name: null }
+      reports: [],
+      newReport: { name: null }
     })
   },
   created() {
-    this.loadUsers()
+    this.loadReports()
   },
   methods: {
-    async loadUsers() {
+    async loadReports() {
       try {
-        this.users = await UserService.getAll()
+        this.reports = //await ReportService.getAll()
+          [new Report()]
         this.error = null
         this.loading = false
       } catch (e) {
@@ -84,14 +85,14 @@ export default {
         this.loading = false
       }
     },
-    async addUser(user) {
-      const addedUser = await UserService.add(this.newUser)
-      this.users.push(addedUser)
-      this.newUser.name = null
+    async addReport(report) {
+      const addedReport = await ReportService.add(this.newReport)
+      this.reports.push(addedReport)
+      this.newReport.name = null
     },
-    async deleteUser(userToDelete) {
-      await UserService.deleteUserById(userToDelete._id)
-      this.users.splice(this.users.indexOf(userToDelete), 1)
+    async deleteReport(reportToDelete) {
+      await ReportService.deleteReportById(reportToDelete._id)
+      this.reports.splice(this.reports.indexOf(reportToDelete), 1)
     }
   }
   

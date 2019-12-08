@@ -36,18 +36,23 @@ export default {
   data () {
     return {
       clipped: false,
-      drawer: true,
+      drawer: false,
       fixed: false,
       items: [
         {
-          icon: 'fas fa-home',
-          title: 'Home',
-          route: 'home'
+          icon: 'fas fa-users',
+          title: 'Applicants',
+          route: 'applicants'
         },
         {
-          icon: 'fas fa-users',
-          title: 'Users',
-          route: 'users'
+          icon: 'fas fa-clipboard-list',
+          title: 'Reports',
+          route: 'reports'
+        },
+        {
+          icon: 'fas fa-user-cog',
+          title: 'Admin',
+          route: 'admin'
         }
       ],
       miniVariant: false,

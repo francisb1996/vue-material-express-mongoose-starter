@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "serve-static": "^1.13.2",
     "ts-vue-plugin": "^0.2.0",
     "vue": "^2.5.17",
